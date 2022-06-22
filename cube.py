@@ -11,6 +11,8 @@ edges = ((0,1),(1,2),(2,3),(3,0),
         (0,4),(1,5),(2,6),(3,7)
         )
 
+#hola alancito, como estas?
+
 def sq():
     glBegin(GL_LINES)
     for e in edges:
