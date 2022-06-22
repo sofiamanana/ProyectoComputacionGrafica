@@ -3,8 +3,8 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 #vertices de las pages
-vertices = ((1,1,1),(1,-1,1),(-1,-1,1),(-1,1,1),
-            (1,1,-1),(1,-1,-1),(-1,-1,-1),(-1,1,-1))
+vertices = [[1,1,1],[1,-1,1],[-1,-1,1],[-1,1,1],
+            [1,1,-1],[1,-1,-1],[-1,-1,-1],[-1,1,-1]]
 #arcos entre las pages
 edges = ((0,1),(1,2),(2,3),(3,0),
         (4,5),(5,6),(6,7),(7,4),
@@ -34,9 +34,7 @@ def main():
                 quit()
 
             if (event.type == pg.MOUSEBUTTONDOWN):
-                glTranslatef(0,0.5,0)
-            if (event.type == pg.MOUSEBUTTONUP):
-                glTranslatef(0,-0.5,0)
+                vertices[0][0] += 1
             keys = pg.key.get_pressed()
             if(keys[K_w]):
                 glTranslatef(0,0.5,0)
