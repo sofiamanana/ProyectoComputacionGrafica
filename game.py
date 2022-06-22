@@ -24,11 +24,11 @@ class App:
         pg.init()
         display = (500,500)
         pg.display.set_mode(display, pg.OPENGL|pg.DOUBLEBUF)
-        #self.clock = pg.time.Clock()
-        #glClearColor(0,0,-5,1)
-        gluPerspective(40,display[0]/display[1],1,10)
-        glTranslatef(0.0,0.0,-5)
-        glRotatef(45,1,0,0)
+        self.clock = pg.time.Clock()
+        glClearColor(0,0,-5,1)
+        #gluPerspective(40,display[0]/display[1],1,10)
+        #glTranslatef(0.0,0.0,-5)
+        #glRotatef(45,1,0,0)
         self.mainLoop()
 
     def mainLoop(self):
@@ -37,10 +37,10 @@ class App:
             for event in pg.event.get():
                 if (event.type == pg.quit):
                     running = False
-            sq()
-            #glClear(GL_COLOR_BUFFER_BIT)
+            #sq()
+            glClear(GL_COLOR_BUFFER_BIT)
             pg.display.flip()
-            #self.clock.tick(60)
+            self.clock.tick(60)
 
     def quit(self):
         pg.quit()
