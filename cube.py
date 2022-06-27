@@ -33,6 +33,7 @@ def sq():
             glVertex2iv(vertices[vertex])
     
     glEnd()
+
 def move():
     new_x,new_y = pg.mouse.get_pos()
     new_x,new_y = norm(new_x,new_y)
@@ -50,26 +51,56 @@ def main():
 
     while True:
         for event in pg.event.get():
+            keys = pg.key.get_pressed()
             if (event.type == pg.quit):
                 pg.quit()
                 quit()
             x,y = pg.mouse.get_pos()
             x_norm,y_norm = norm(x,y)
-            if (event.type == pg.MOUSEBUTTONDOWN):
-                if (event.button == 1):
-                    if (-0.6 < x_norm < -0.5) and ( 0.5 < y_norm < 0.6):
-                        new_x,new_y = move()
-                        vertices[3] = [int(new_x), int(new_y)]
-            print(x_norm,y_norm)
-            keys = pg.key.get_pressed()
-            if keys[K_w]:
-                vertices[3][1] += 1
-            if keys[K_a]:
-                vertices[3][0] -= 1
-            if keys[K_s]:
-                vertices[3][1] -= 1
-            if keys[K_d]:
-                vertices[3][0] += 1
+            
+            #vertice -1,1
+            if (105 < x < 120 and 105 < y < 120):
+                    if keys[K_w]:
+                        vertices[3][1] += 1
+                    if keys[K_a]:
+                        vertices[3][0] -= 1
+                    if keys[K_s]:
+                        vertices[3][1] -= 1
+                    if keys[K_d]:
+                        vertices[3][0] += 1
+            #vertice 1,1
+            if (375 < x < 390 and 105 < y < 120):
+                    if keys[K_w]:
+                        vertices[0][1] += 1
+                    if keys[K_a]:
+                        vertices[0][0] -= 1
+                    if keys[K_s]:
+                        vertices[0][1] -= 1
+                    if keys[K_d]:
+                        vertices[0][0] += 1
+            #vertice -1,-1
+            if (110 < x < 115 and 375 < y < 390):
+                    if keys[K_w]:
+                        vertices[2][1] += 1
+                    if keys[K_a]:
+                        vertices[2][0] -= 1
+                    if keys[K_s]:
+                        vertices[2][1] -= 1
+                    if keys[K_d]:
+                        vertices[2][0] += 1
+            #vertice 1,-1
+            if (375 < x < 390 and 375 < y < 390):
+                    if keys[K_w]:
+                        vertices[1][1] += 1
+                    if keys[K_a]:
+                        vertices[1][0] -= 1
+                    if keys[K_s]:
+                        vertices[1][1] -= 1
+                    if keys[K_d]:
+                        vertices[1][0] += 1
+
+            print(x_norm,y_norm)          
+            
 
             #print(pg.mouse.get_pressed())
             #(1,2,3) -> true if is pressed
