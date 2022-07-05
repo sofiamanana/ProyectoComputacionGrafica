@@ -3,11 +3,20 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from math import *   
-#vertices de las pages
-vertices = [[1,1],[1,-1],[-1,-1],[-1,1]]
-pos_v = [[319,181],[319,319],[181,319],[181,181]]
-#arcos entre las pages
-edges = ((0,1),(1,2),(2,3),(3,0))
+import numpy as np
+
+vertices1 = [[1,1],[1,-1],[-1,-1],[-1,1]]
+edges1 = ((0,1),(1,2),(2,3),(3,0))
+
+vertices2 = [[1,3.5],[-1,3.5],[-1,1.5],[1,1.5]]
+edges2 = ((0,1),(1,2),(2,3),(3,0))
+
+vertices3 = [[1,-1.5],[-1,-1.5],[-1,-3.5],[1,-3.5]]
+edges3 = ((0,1),(1,2),(2,3),(3,0))
+
+vertices1 = np.array(vertices1,dtype=np.float32)
+vertices2 = np.array(vertices2,dtype=np.float32)
+vertices3 = np.array(vertices3,dtype=np.float32)
 
 def circle():
     pos_x, pos_y = 1,1   
@@ -25,12 +34,12 @@ def norm(x, y):
     y_norm = temp_y + 250
     return x_norm/250, y_norm/250
 
-def sq():
+def sq(vertices, edges):
     glBegin(GL_LINES)
-    
+    glColor3f(133/255,68/255,194/255)
     for e in edges:
         for vertex in e:
-            glVertex2iv(vertices[vertex])
+            glVertex2fv(vertices[vertex])
     
     glEnd()
 
@@ -46,7 +55,7 @@ def main():
     display = (500,500)
     pg.display.set_mode(display, pg.DOUBLEBUF|pg.OPENGL|pg.RESIZABLE)
     gluPerspective(40,(display[0]/display[1]),1,10)
-    glTranslatef(0.0,0.0,-5.0)
+    glTranslatef(0.0,0.0,-10.0)
     #glRotatef(0,0,1,1)
 
     while True:
@@ -57,94 +66,132 @@ def main():
                 quit()
             x,y = pg.mouse.get_pos()
             x_norm,y_norm = norm(x,y)
-            
-            #vertice -1,1
-            if (105 < x < 120 and 105 < y < 120):
-                    if keys[K_w]:
-                        vertices[3][1] += 1
-                    if keys[K_a]:
-                        vertices[3][0] -= 1
-                    if keys[K_s]:
-                        vertices[3][1] -= 1
-                    if keys[K_d]:
-                        vertices[3][0] += 1
-            #vertice 1,1
-            if (375 < x < 390 and 105 < y < 120):
-                    if keys[K_w]:
-                        vertices[0][1] += 1
-                    if keys[K_a]:
-                        vertices[0][0] -= 1
-                    if keys[K_s]:
-                        vertices[0][1] -= 1
-                    if keys[K_d]:
-                        vertices[0][0] += 1
-            #vertice -1,-1
-            if (110 < x < 115 and 375 < y < 390):
-                    if keys[K_w]:
-                        vertices[2][1] += 1
-                    if keys[K_a]:
-                        vertices[2][0] -= 1
-                    if keys[K_s]:
-                        vertices[2][1] -= 1
-                    if keys[K_d]:
-                        vertices[2][0] += 1
-            #vertice 1,-1
-            if (375 < x < 390 and 375 < y < 390):
-                    if keys[K_w]:
-                        vertices[1][1] += 1
-                    if keys[K_a]:
-                        vertices[1][0] -= 1
-                    if keys[K_s]:
-                        vertices[1][1] -= 1
-                    if keys[K_d]:
-                        vertices[1][0] += 1
+            #Cuadrado 1
+            #vertices2 = [[1,3.5],[-1,3.5],[-1,1.5],[1,1.5]]
+            if keys[K_1] and keys[K_LEFT]:
+                if keys[K_w]:
+                    vertices2[1][1] += 0.1
+                if keys[K_a]:
+                    vertices2[1][0] -= 0.1
+                if keys[K_s]:
+                    vertices2[1][1] -= 0.1
+                if keys[K_d]:
+                    vertices2[1][0] += 0.1
+            if keys[K_1] and keys[K_RIGHT]:
+                if keys[K_w]:
+                    vertices2[0][1] += 0.1
+                if keys[K_s]:
+                    vertices2[0][0] -= 0.1
+                if keys[K_c]:
+                    vertices2[0][1] -= 0.1
+                if keys[K_d]:
+                    vertices2[0][0] += 0.1
+            if keys[K_1] and keys[K_DOWN]:
+                if keys[K_w]:
+                    vertices2[2][1] += 0.1
+                if keys[K_s]:
+                    vertices2[2][0] -= 0.1
+                if keys[K_c]:
+                    vertices2[2][1] -= 0.1
+                if keys[K_d]:
+                    vertices2[2][0] += 0.1
+            if keys[K_1] and keys[K_UP]:
+                if keys[K_w]:
+                    vertices2[3][1] += 0.1
+                if keys[K_a]:
+                    vertices2[3][0] -= 0.1
+                if keys[K_s]:
+                    vertices2[3][1] -= 0.1
+                if keys[K_d]:
+                    vertices2[3][0] += 0.1
+            #Cuadrado 2 
+            if keys[K_2] and keys[K_LEFT]:
+                if keys[K_q]:
+                    vertices1[3][1] += 0.1
+                if keys[K_a]:
+                    vertices1[3][0] -= 0.1
+                if keys[K_s]:
+                    vertices1[3][1] -= 0.1
+                if keys[K_d]:
+                    vertices1[3][0] += 0.1
+            if keys[K_2] and keys[K_RIGHT]:
+                if keys[K_q]:
+                    vertices1[0][1] += 0.1
+                if keys[K_a]:
+                    vertices1[0][0] -= 0.1
+                if keys[K_c]:
+                    vertices1[0][1] -= 0.1
+                if keys[K_d]:
+                    vertices1[0][0] += 0.1
+            if keys[K_2] and keys[K_DOWN]:
+                if keys[K_q]:
+                    vertices1[2][1] += 0.1
+                if keys[K_a]:
+                    vertices1[2][0] -= 0.1
+                if keys[K_c]:
+                    vertices1[2][1] -= 0.1
+                if keys[K_d]:
+                    vertices1[2][0] += 0.1
+            if keys[K_2] and keys[K_UP]:
+                if keys[K_q]:
+                    vertices1[1][1] += 0.1
+                if keys[K_a]:
+                    vertices1[1][0] -= 0.1
+                if keys[K_s]:
+                    vertices1[1][1] -= 0.1
+                if keys[K_d]:
+                    vertices1[1][0] += 0.1
 
+            #Cuadrado 3 ----------------------------------------------------------
+            if keys[K_3] and keys[K_LEFT]:
+                if keys[K_w]:
+                    vertices3[1][1] += 0.1
+                if keys[K_a]:
+                    vertices3[1][0] -= 0.1
+                if keys[K_s]:
+                    vertices3[1][1] -= 0.1
+                if keys[K_d]:
+                    vertices3[1][0] += 0.1
+            if keys[K_3] and keys[K_RIGHT]:
+                if keys[K_q]:
+                    vertices3[0][1] += 0.1
+                if keys[K_a]:
+                    vertices3[0][0] -= 0.1
+                if keys[K_s]:
+                    vertices3[0][1] -= 0.1
+                if keys[K_f]:
+                    vertices3[0][0] += 0.1
+            if keys[K_3] and keys[K_DOWN]:
+                if keys[K_q]:
+                    vertices3[2][1] += 0.1
+                if keys[K_a]:
+                    vertices3[2][0] -= 0.1
+                if keys[K_s]:
+                    vertices3[2][1] -= 0.1
+                if keys[K_f]:
+                    vertices3[2][0] += 0.1
+            if keys[K_3] and keys[K_UP]:
+                if keys[K_w]:
+                    vertices3[3][1] += 0.1
+                if keys[K_a]:
+                    vertices3[3][0] -= 0.1
+                if keys[K_s]:
+                    vertices3[3][1] -= 0.1
+                if keys[K_d]:
+                    vertices3[3][0] += 0.1
             print(x_norm,y_norm)          
             
 
             #print(pg.mouse.get_pressed())
             #(1,2,3) -> true if is pressed
 
-
-
-
-
-            '''
-            if (event.type == pg.MOUSEBUTTONDOWN):
-                if (event.button == 1):
-                    if (pg.mouse.get_pos()[0] == pos_v[3][0] or pg.mouse.get_pos()[0] == (pos_v[3][0]+1) or pg.mouse.get_pos()[0] == (pos_v[3][0]+2)):
-                        vertices[3][0] -= 1
-                        pos_v[3][0] -= 181
-                    if (pg.mouse.get_pos()[0] == pos_v[0][0] or pg.mouse.get_pos()[0] == (pos_v[0][0]+1) or pg.mouse.get_pos()[0] == (pos_v[0][0]+2)):
-                        vertices[0][0] += 1
-                        pos_v[0][0] += 181
-                    if (pg.mouse.get_pos()[1] == pos_v[1][0] or pg.mouse.get_pos()[1] == (pos_v[1][0]+1) or pg.mouse.get_pos()[1] == (pos_v[1][0]+2)):
-                        vertices[1][0] -= 1
-                        pos_v[1][0] -= 181
-                    if (pg.mouse.get_pos()[1] == pos_v[2][0] or pg.mouse.get_pos()[0] == (pos_v[2][0]+1) or pg.mouse.get_pos()[0] == (pos_v[2][0]+2)):
-                        vertices[2][0] += 1
-                        pos_v[2][0] += 181
-            if (event.type == pg.MOUSEBUTTONUP):
-                if (event.button == 3):
-                    if (pg.mouse.get_pos()[0] == pos_v[3][0] or pg.mouse.get_pos()[0] == (pos_v[3][0]+1) or pg.mouse.get_pos()[0] == (pos_v[3][0]+2)):
-                        vertices[3][0] += 1
-                        pos_v[3][0] += 181
-                    if (pg.mouse.get_pos()[0] == pos_v[0][0] or pg.mouse.get_pos()[0] == (pos_v[0][0]+1) or pg.mouse.get_pos()[0] == (pos_v[0][0]+2)):
-                        vertices[0][0] -= 1
-                        pos_v[0][0] -= 181
-                    if (pg.mouse.get_pos()[1] == pos_v[1][0] or pg.mouse.get_pos()[1] == (pos_v[1][0]+1) or pg.mouse.get_pos()[1] == (pos_v[1][0]+2)):
-                        vertices[1][0] += 1
-                        pos_v[1][0] += 181
-                    if (pg.mouse.get_pos()[1] == pos_v[2][0] or pg.mouse.get_pos()[0] == (pos_v[2][0]+1) or pg.mouse.get_pos()[0] == (pos_v[2][0]+2)):
-                        vertices[2][0] -= 1
-                        pos_v[2][0] -= 181
-            '''
             print(pg.mouse.get_pos())
             
         
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-        #circle()
-        sq()
+        sq(vertices1,edges1)
+        sq(vertices2,edges2)
+        sq(vertices3,edges3)
         pg.display.flip()
         pg.time.wait(10)
 
